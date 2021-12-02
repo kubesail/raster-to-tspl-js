@@ -1,4 +1,10 @@
 {
+  "name": "raster-to-tspl-js",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:kubesail/raster-to-tspl-js.git",
+  "author": "Dan Pastusek <dan@hexial.com>",
+  "license": "MIT",
   "dependencies": {
     "jimp": "^0.16.1"
   }
