@@ -3,6 +3,7 @@
 
 const jimp = require("jimp");
 const fs = require("fs");
+const path = require("path");
 
 const THRESHOLD = 2500000000; // RGBA value in int form
 
@@ -14,7 +15,9 @@ const ROWS = 1198;
 // const COLS = 16;
 // const ROWS = 2;
 
-jimp.read("test-label.png", async (err, image) => {
+const labelPath = path.resolve(process.cwd(), process.argv[2]);
+
+jimp.read(labelPath, async (err, image) => {
   image.resize(COLS, ROWS).grayscale();
   const img = new Buffer.alloc((COLS / 8) * ROWS);
   for (let row = 0; row < ROWS; row++) {
