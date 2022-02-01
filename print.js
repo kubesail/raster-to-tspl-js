@@ -1,4 +1,4 @@
-// simple code for
+// simple code for converting a raster image into a TSPL `BITMAP` command
 // MIT license
 
 const jimp = require("jimp");
