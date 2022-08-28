@@ -18,7 +18,7 @@ const ROWS = 1198;
 const labelPath = path.resolve(process.cwd(), process.argv[2]);
 
 jimp.read(labelPath, async (err, image) => {
-  image.resize(COLS, ROWS).grayscale();
+  //image.resize(COLS, ROWS).grayscale();
   const img = new Buffer.alloc((COLS / 8) * ROWS);
   for (let row = 0; row < ROWS; row++) {
     for (let byte = 0; byte < COLS / 8; byte++) {
@@ -48,6 +48,6 @@ jimp.read(labelPath, async (err, image) => {
     Buffer.from("\r\nPRINT 1,1"),
     Buffer.from("\r\n"),
   ]);
-  //fs.writeFileSync("out.tspl", label); //for debugging
-  fs.writeFileSync("/dev/usb/lp0", label);
+  fs.writeFileSync("out.tspl", label); //for debugging
+  //fs.writeFileSync("/dev/usb/lp0", label);
 });

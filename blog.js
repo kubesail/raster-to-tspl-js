@@ -10,15 +10,15 @@ const THRESHOLD = 2500000000; // RGBA value in int form
 // 255 min; (r0 g0 b0 a255)
 // 4294967295; max (r255 g255 b255 a255)
 
-const COLS = 800;
-const ROWS = 1198;
+const COLS = 16;
+const ROWS = 16;
 // const COLS = 16;
 // const ROWS = 2;
 
 const labelPath = path.resolve(process.cwd(), process.argv[2]);
 
 jimp.read(labelPath, async (err, image) => {
-  image.resize(COLS, ROWS).grayscale();
+  //image.resize(COLS, ROWS).grayscale();
   const img = new Buffer.alloc((COLS / 8) * ROWS);
   for (let row = 0; row < ROWS; row++) {
     for (let byte = 0; byte < COLS / 8; byte++) {
@@ -37,17 +37,17 @@ jimp.read(labelPath, async (err, image) => {
   }
 
   const label = Buffer.concat([
-    Buffer.alloc(512), // 512 NUL bytes to start a new label
+    //Buffer.alloc(512), // 512 NUL bytes to start a new label
     Buffer.from("\r\nSIZE 99.8 mm, 149.9 mm"),
     Buffer.from("\r\nSET TEAR ON"),
     Buffer.from("\r\nSET CUTTER OFF"),
     Buffer.from("\r\nSET PEEL OFF"),
     Buffer.from("\r\nCLS"),
-    Buffer.from("\r\nBITMAP 0,0,100,1198,1,"),
+    Buffer.from("\r\nBITMAP 0,0,2,16,1,"),
     img,
     Buffer.from("\r\nPRINT 1,1"),
     Buffer.from("\r\n"),
   ]);
-  //fs.writeFileSync("out.tspl", label); //for debugging
-  fs.writeFileSync("/dev/usb/lp0", label);
+  fs.writeFileSync("out.tspl", label); //for debugging
+  //fs.writeFileSync("/dev/usb/lp0", label);
 });

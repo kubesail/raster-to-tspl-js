@@ -18,7 +18,8 @@ const ROWS = 1198;
 const labelPath = path.resolve(process.cwd(), process.argv[2]);
 
 jimp.read(labelPath, async (err, image) => {
-  image.resize(COLS, ROWS).grayscale();
+  //image.resize(COLS, ROWS).grayscale();
+  await image.crop(0,1198,800,1198);
   const img = new Buffer.alloc((COLS / 8) * ROWS);
   for (let row = 0; row < ROWS; row++) {
     for (let byte = 0; byte < COLS / 8; byte++) {
